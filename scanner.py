@@ -18,6 +18,14 @@ def digitalSignatureCheck(filePath):
 
 #Checks to see if a file fits the requirements to be suspected
 def scanFile(filePath):
+    points = 0
+
+    #Size Check
+    if os.path.getsize(filePath) > 1048576:
+        points+=1
+    
+    
+
     return False
 
 #Scans a directory and adds any sus files to the main sus files list
