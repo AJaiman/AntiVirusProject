@@ -17,7 +17,7 @@ def digitalSignatureCheck(filePath):
 
 
 #Checks to see if a file fits the requirements to be suspected
-def isSus(filePath):
+def scanFile(filePath):
     return False
 
 #Scans a directory and adds any sus files to the main sus files list
@@ -39,8 +39,8 @@ def scanDirectory(path):
 
         pair[1] = newFileList
 
-
-    #susFiles = []
-    #return susFiles
+    print(files)
+    susFiles = []
+    return susFiles
 
 scanDirectory("C:\\Users\\aravj\\Downloads")
