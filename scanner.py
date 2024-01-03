@@ -24,6 +24,11 @@ def scanFile(filePath):
     if os.path.getsize(filePath) > 1048576:
         points+=1
     
+    with open(file_path, "rb") as f:
+        data = f.read()
+        if b"system(" in data or b"system (" in data:
+            points+=1
+    
     
 
     return False
