@@ -1,5 +1,6 @@
 import os
 import win32api
+import r2pipe
 
 #os.chdir(path) sets working directory
 #os.stat(path) gets file stats
@@ -24,12 +25,22 @@ def scanFile(filePath):
     if os.path.getsize(filePath) > 1048576:
         points+=1
     
+    #System Modification Check
     with open(file_path, "rb") as f:
         data = f.read()
         if b"system(" in data or b"system (" in data:
             points+=1
     
-    
+    #Network Connection Check
+    r2 = r2pipe.open(file_path)
+    # Disassemble the code
+    disassembly = r2.cmd("pdg")
+    # Look for network-related functions
+    network_functions = ["connect", "send", "recv"]
+    for function in network_functions:
+        if function in disassembly:
+            points+=1
+
 
     return False
 
