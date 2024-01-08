@@ -75,4 +75,10 @@ def scanDirectory(path):
     
     return susFiles
 
-scanDirectory("C:\\Users\\aravj\\Downloads")
+print("Hello, welcome to SFD AntiVirus, the best open-source antivirus.")
+d = input("Copy and paste the directory that may be suspicous: ")
+print("Scanning...")
+suspicousFiles = scanDirectory(d)
+print("Suspicious Files:")
+for file in suspicousFiles:
+    print(file)
