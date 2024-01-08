@@ -26,22 +26,23 @@ def scanFile(filePath):
         points+=1
     
     #System Modification Check
-    with open(file_path, "rb") as f:
+    with open(filePath, "rb") as f:
         data = f.read()
         if b"system(" in data or b"system (" in data:
             points+=1
     
     #Network Connection Check
-    r2 = r2pipe.open(file_path)
-    # Disassemble the code
-    disassembly = r2.cmd("pdg")
     # Look for network-related functions
-    network_functions = ["connect", "send", "recv"]
-    for function in network_functions:
-        if function in disassembly:
-            points+=1
+    network_functions = [b"connect", b"send", b"recv"]
+    with open(filePath, "rb") as f:
+        data = f.read()
+        for function in network_functions:
+            if function in data:
+                points+=1
 
 
+    if points >= 2:
+        return True
     return False
 
 #Scans a directory and adds any sus files to the main sus files list
@@ -63,8 +64,15 @@ def scanDirectory(path):
 
         pair[1] = newFileList
 
-    print(files)
     susFiles = []
+    for subDir in files:
+        subdirName = subDir[0]
+        for f in subDir[1]:
+            fi = subdirName  + "\\\\" + f
+            if scanFile(fi):
+                susFiles.append(fi)
+
+    
     return susFiles
 
 scanDirectory("C:\\Users\\aravj\\Downloads")
