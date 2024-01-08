@@ -25,6 +25,10 @@ def scanFile(filePath):
     if os.path.getsize(filePath) > 1048576:
         points+=1
     
+    #Digital Signature Check
+    if not digitalSignatureCheck(filePath):
+        points+=1
+    
     #System Modification Check
     with open(filePath, "rb") as f:
         data = f.read()
