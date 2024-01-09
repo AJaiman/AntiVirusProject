@@ -13,7 +13,7 @@ def digitalSignatureCheck(filePath):
         d = win32api.GetFileVersionInfo(filePath, "\\")
         d['Signature']
         return True
-    except Exception:
+    except  :
         return False
 
 
@@ -27,7 +27,7 @@ def scanFile(filePath):
     
     #Digital Signature Check
     if not digitalSignatureCheck(filePath):
-        points+=1
+        return False
     
     #System Modification Check
     with open(filePath, "rb") as f:
